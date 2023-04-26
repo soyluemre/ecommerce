@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import "./header.css";
 import { Container, Row } from "reactstrap";
 import logo from "../../assets/images/eco-logo.png";
@@ -22,8 +22,36 @@ const nav__links = [
 ];
 
 const Header = () => {
+  const headerRef = useRef(null);
+  const menuRef = useRef(null);
+
+  const stickyHeaderFunc = () => {
+    window.addEventListener("scroll", () => {
+      if (
+        document.body.scrollTop > 80 ||
+        document.documentElement.scrollTop > 80
+      ) {
+        headerRef.current.classList.add("sticky__header");
+      } else {
+        headerRef.current.classList.remove("sticky__header");
+      }
+    });
+  };
+
+  const menuToggle = () => {
+    menuRef.current.classList.toggle("active__menu");
+  };
+
+  useEffect(() => {
+    stickyHeaderFunc();
+
+    return () => {
+      window.removeEventListener("scroll", stickyHeaderFunc);
+    };
+  }, []);
+
   return (
-    <header className="header">
+    <header className="header" ref={headerRef}>
       <Container>
         <Row>
           <div className="nav__wrapper">
@@ -31,11 +59,10 @@ const Header = () => {
               <img src={logo} alt="logo" />
               <div>
                 <h1>Multimart</h1>
-                {/* <p>Since 1995</p> */}
               </div>
             </div>
 
-            <div className="navigation">
+            <div className="navigation" ref={menuRef} onClick={menuToggle}>
               <ul className="menu">
                 {nav__links?.map((item, index) => (
                   <li key={index} className="nav__item">
@@ -55,11 +82,11 @@ const Header = () => {
             <div className="nav__icons">
               <span className="fav__icon">
                 <i className="ri-heart-line"></i>
-                <span className="badge">100</span>
+                <span className="badge">3</span>
               </span>
               <span className="cart__icon">
                 <i className="ri-shopping-bag-line"></i>
-                <span className="badge">100</span>
+                <span className="badge">5</span>
               </span>
               <span>
                 <motion.img
@@ -68,12 +95,11 @@ const Header = () => {
                   alt="usericon"
                 />
               </span>
-            </div>
-
-            <div className="mobile__menu">
-              <span>
-                <i className="ri-menu-line"></i>
-              </span>
+              <div className="mobile__menu">
+                <span onClick={menuToggle}>
+                  <i className="ri-menu-line"></i>
+                </span>
+              </div>
             </div>
           </div>
         </Row>
