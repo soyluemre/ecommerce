@@ -59,12 +59,12 @@
 
 .badge {
   position: absolute;
-  top: 11%;
+  top: 10%;
   right: 0%;
-  left: 60%;
-  width: 17px;
+  left: 50%;
   width: fit-content;
-  height: 17px;
+  width: 25px;
+  height: 25px;
   content: "";
   background: var(--primary-color);
   color: #fff;
