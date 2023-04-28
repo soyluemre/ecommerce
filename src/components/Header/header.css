@@ -55,6 +55,7 @@
 .fav__icon {
   position: relative;
   display: flex;
+  cursor: pointer;
 }
 
 .badge {

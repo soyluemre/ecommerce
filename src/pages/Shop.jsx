@@ -93,7 +93,7 @@ const Shop = () => {
             </Col>
           </Row>
         </Container>
-        <section className="">
+        <section>
           <Container>
             <Row>
               {productsData.length === 0 ? (
